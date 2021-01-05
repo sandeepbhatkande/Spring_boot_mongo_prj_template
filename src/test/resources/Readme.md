@@ -1,0 +1,1 @@
+This directory contains all the resources that are required by testing framework

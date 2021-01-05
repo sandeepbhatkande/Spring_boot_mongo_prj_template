@@ -1,0 +1,7 @@
+FROM library/openjdk:8u171-jdk-alpine
+VOLUME /tmp
+COPY build/libs/* app.jar
+ARG ELASTIC_APM_AGENT_VERSION=1.16.0
+RUN wget https://search.maven.org/remotecontent?filepath=co/elastic/apm/elastic-apm-agent/${ELASTIC_APM_AGENT_VERSION}/elastic-apm-agent-${ELASTIC_APM_AGENT_VERSION}.jar \
+    -O elastic-apm-agent.jar
+ENTRYPOINT ["java", "-javaagent:/elastic-apm-agent.jar", "-Djava.security.egd=file:/dev/./urandom","-jar", "/app.jar"]
